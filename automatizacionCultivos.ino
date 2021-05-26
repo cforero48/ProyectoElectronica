@@ -46,6 +46,15 @@ void loop(){
   temperatura = analogRead(pinLM35)*factorBT;
   aire = analogRead(pinMQ135)*factorBP;
   humedad = analogRead(pinSIG0040)*factorBP;
+
+  Serial.print(luz);
+  Serial.print(" ");
+  Serial.println(temperatura);
+  Serial.print(" ");
+  Serial.print(aire);
+  Serial.print(" ");
+  Serial.print(humedad);
+  Serial.print(" ");
   
   // Cursor en la primera posición de la primera fila
   lcd.setCursor(0,0);
@@ -57,18 +66,19 @@ void loop(){
   lcd.setCursor(10,0);
   lcd.print("T:");
   lcd.print(temperatura,1);//1 decimal
-  lcd.print("337C  ");
+  lcd.print((char)223);
+  lcd.print("C");
   
   // Cursor en la primera posición de la 2° fila
   lcd.setCursor(0,1);
   lcd.print("A:");
   lcd.print(aire,1); //1 decimal
-  lcd.print("337C  "); // "337" -> "°"
+  lcd.print("%   "); // 
   
   // Cursor en la 11° posición de la 2° fila
   lcd.setCursor(10,1);
   lcd.print("H:");
-  lcd.print(humedad);
+  lcd.print(humedad,0);
   lcd.print("%   ");
   
   delay(200);
