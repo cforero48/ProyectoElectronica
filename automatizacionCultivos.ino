@@ -11,7 +11,7 @@ float temperatura;
 float aire;
 float humedad;
 float factorBP = 100.0 / 1023.0; // Factor de Conversión de bits a porcentaje
-float factorBT = 500.0 / 1023.0; // Factor de Conversión de bits a °C
+float factorBT = 5.0*200.0 / 1023.0; // Factor de Conversión de bits a °C
 
 //Crear el objeto LCD dirección 0x3F y 16 columnas x 2 filas
 LiquidCrystal_I2C lcd(0x27, 20, 4);  //
@@ -42,10 +42,10 @@ void setup(){
 
 void loop(){
   //Definen variables de los sensores
-  luz = analogRead(pinLDR)*factorBP;
+  luz = pow(analogRead(pinLDR)*5.0/1023.0, 2)/0.01;
   temperatura = analogRead(pinLM35)*factorBT;
-  aire = analogRead(pinMQ135)*factorBP;
-  humedad = analogRead(pinSIG0040)*factorBP;
+  aire = 100 - analogRead(pinMQ135)*factorBP;
+  humedad = 100 - analogRead(pinSIG0040)*factorBP;
 
   Serial.print(luz);
   Serial.print(" ");
